@@ -1,0 +1,6 @@
+*.task
+*_pose.json
+*_reps.json
+*.mp4
+*.mov
+__pycache__/
