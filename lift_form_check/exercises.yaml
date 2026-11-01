@@ -1,0 +1,103 @@
+# Exercise profiles.
+#
+# count:      "bottom" = a rep is counted at the lowest bar point, "top" = at lockout
+# depth_ref:  what is compared to knee height for depth ("bar" or "hip")
+# lock_knees: knees barely move in this lift (helps when the plate hides them)
+# rules:      a warning fires when metric is below / above the value.
+#             {name} in the text is replaced with the measured value of that rep.
+
+rdl:
+  title: Romanian Deadlift (RDL)
+  count: bottom
+  depth_ref: bar
+  lock_knees: true
+  columns:
+    - [depth, "{:+.0f} cm", {en: DEPTH, sl: GLOBINA}]
+    - [hip,   "{:.0f}°",    {en: HIP, sl: KOT BOK}]
+    - [down,  "{:.1f} s",   {en: DOWN, sl: SPUST}]
+    - [neck,  "{:+.0f}°",   {en: NECK, sl: VRAT}]
+  rules:
+    - metric: depth
+      below: 1.5
+      title: {en: NOT ENOUGH DEPTH, sl: PREMALO GLOBINE}
+      text:  {en: "bar only to the knee · push hips further back", sl: "drog le do kolena · bok potisni dlje nazaj"}
+    - metric: neck
+      above: 12
+      title: {en: NECK EXTENDED, sl: VRAT V EKSTENZIJI}
+      text:  {en: "+{neck:.0f}° vs back line · look 1–2 m in front of feet", sl: "+{neck:.0f}° glede na hrbet · pogled 1–2 m pred stopala"}
+    - metric: down
+      below: 1.5
+      title: {en: DESCENT TOO FAST, sl: PREHITER SPUST}
+      text:  {en: "descent {down:.1f} s · aim for 2–3 s", sl: "spust {down:.1f} s · cilj 2–3 s"}
+  ok: {en: "bar ~{depth:.0f} cm below knee · neutral neck", sl: "drog ~{depth:.0f} cm pod kolenom · vrat nevtralen"}
+  note: {en: "Depth = cm of bar below knee (2D estimate)", sl: "Globina = cm droga pod kolenom (ocena iz 2D)"}
+
+squat:
+  title: Back Squat
+  count: bottom
+  depth_ref: hip
+  lock_knees: false
+  columns:
+    - [depth, "{:+.0f} cm", {en: DEPTH, sl: GLOBINA}]
+    - [knee,  "{:.0f}°",    {en: KNEE, sl: KOT KOLENO}]
+    - [down,  "{:.1f} s",   {en: DOWN, sl: SPUST}]
+    - [neck,  "{:+.0f}°",   {en: NECK, sl: VRAT}]
+  rules:
+    - metric: depth
+      below: 0
+      title: {en: ABOVE PARALLEL, sl: NAD PARALELO}
+      text:  {en: "hip crease above the knee", sl: "bok nad višino kolena"}
+    - metric: neck
+      above: 12
+      title: {en: NECK EXTENDED, sl: VRAT V EKSTENZIJI}
+      text:  {en: "+{neck:.0f}° vs back line", sl: "+{neck:.0f}° glede na hrbet"}
+    - metric: down
+      below: 1.0
+      title: {en: UNCONTROLLED DESCENT, sl: NEKONTROLIRAN SPUST}
+      text:  {en: "descent {down:.1f} s", sl: "spust {down:.1f} s"}
+  ok: {en: "hip {depth:.0f} cm below knee", sl: "bok {depth:.0f} cm pod kolenom"}
+  note: {en: "Depth = cm of hip below knee (2D estimate)", sl: "Globina = cm boka pod kolenom (ocena iz 2D)"}
+
+deadlift:
+  title: Deadlift
+  count: top
+  depth_ref: bar
+  lock_knees: false
+  columns:
+    - [lockout, "{:.0f}°",   {en: LOCKOUT, sl: LOCKOUT}]
+    - [hips,    "{:.1f}×",   {en: HIP/BAR, sl: BOK/DROG}]
+    - [up,      "{:.1f} s",  {en: UP, sl: DVIG}]
+    - [neck,    "{:+.0f}°",  {en: NECK, sl: VRAT}]
+  rules:
+    - metric: lockout
+      below: 165
+      title: {en: SOFT LOCKOUT, sl: NEPOPOLN LOCKOUT}
+      text:  {en: "hip angle at top {lockout:.0f}° · squeeze glutes", sl: "kot v boku zgoraj {lockout:.0f}° · stisni zadnjico"}
+    - metric: hips
+      above: 1.6
+      title: {en: HIPS SHOOT UP, sl: BOKI PREHITRO GOR}
+      text:  {en: "hips {hips:.1f}× faster than bar · push the floor away", sl: "bok {hips:.1f}× hitreje od droga · potisni s tlemi"}
+    - metric: neck
+      above: 12
+      title: {en: NECK EXTENDED, sl: VRAT V EKSTENZIJI}
+      text:  {en: "+{neck:.0f}° vs back line", sl: "+{neck:.0f}° glede na hrbet"}
+  ok: {en: "lockout {lockout:.0f}° · hips and bar together", sl: "lockout {lockout:.0f}° · bok in drog skupaj"}
+  note: {en: "HIP/BAR = hip speed vs bar speed early in the pull", sl: "BOK/DROG = hitrost boka proti drogu na začetku vleka"}
+
+generic:
+  title: Movement analysis
+  count: bottom
+  depth_ref: bar
+  lock_knees: false
+  columns:
+    - [hip,  "{:.0f}°",  {en: HIP, sl: KOT BOK}]
+    - [knee, "{:.0f}°",  {en: KNEE, sl: KOT KOLENO}]
+    - [down, "{:.1f} s", {en: DOWN, sl: SPUST}]
+    - [neck, "{:+.0f}°", {en: NECK, sl: VRAT}]
+  rules:
+    - metric: neck
+      above: 12
+      title: {en: NECK EXTENDED, sl: VRAT V EKSTENZIJI}
+      text:  {en: "+{neck:.0f}° vs back line", sl: "+{neck:.0f}° glede na hrbet"}
+  ok: {en: "no warnings", sl: "brez opozoril"}
+  note: {en: "Angles are a 2D estimate", sl: "Koti so ocena iz 2D posnetka"}

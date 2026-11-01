@@ -2,5 +2,11 @@ mediapipe>=0.10.14
 opencv-python-headless
 numpy
 scipy
+pandas
 pillow
+pyyaml
+supervision
+imageio-ffmpeg
+tqdm
+rich
 matplotlib
